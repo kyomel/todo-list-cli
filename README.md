@@ -15,6 +15,9 @@ The application supports the following command-line flags:
 - `-complete`: Mark a task as completed by specifying its index.  
   Example: `todo -complete 1`
 
+- `-del`: Delete a task from the todo list by specifying its index.  
+  Example: `todo -del 2`
+
 ## Configuration
 
 The todo list is stored in a JSON file. By default, the file is named `.todo.json`, but this can be overridden by setting the `TODO_FILENAME` environment variable.
@@ -27,7 +30,8 @@ The todo list is stored in a JSON file. By default, the file is named `.todo.jso
    The application uses the `flag` package to parse command-line arguments.  
    - `task`: Specifies a new task to add.  
    - `list`: Lists all tasks.  
-   - `complete`: Marks a task as completed.
+   - `complete`: Marks a task as completed.  
+   - `del`: Deletes a task by its index.
 
 2. **Custom Usage Message**:  
    A custom usage message is defined to provide helpful information about the application.
@@ -39,7 +43,8 @@ The todo list is stored in a JSON file. By default, the file is named `.todo.jso
    - **Get**: Reads the todo list from the file.  
    - **List**: Prints all tasks.  
    - **Complete**: Marks a task as completed and saves the updated list.  
-   - **Add**: Adds a new task and saves the updated list.
+   - **Add**: Adds a new task and saves the updated list.  
+   - **Delete**: Removes a task from the list and saves the updated list.
 
 5. **Error Handling**:  
    Errors during file operations are printed to `stderr`, and the application exits with a non-zero status code.
@@ -63,5 +68,10 @@ The todo list is stored in a JSON file. By default, the file is named `.todo.jso
 3. Complete a task:  
    ```bash
    todo -complete 1
+   ```
+   
+4. Delete a task:  
+   ```bash
+   todo -del 2
    ```
    

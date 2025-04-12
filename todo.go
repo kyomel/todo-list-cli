@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io/ioutil"
 	"os"
 	"time"
 )
@@ -54,7 +55,7 @@ func (l *List) Add(task string) {
 func (l *List) Complete(i int) error {
 	ls := *l
 	if i <= 0 || i > len(ls) {
-		return fmt.Errorf("invalid task id")
+		return fmt.Errorf("item %d does not exist", i)
 	}
 
 	// Adjusting index for 0 based index
@@ -68,7 +69,7 @@ func (l *List) Complete(i int) error {
 func (l *List) Delete(i int) error {
 	ls := *l
 	if i <= 0 || i > len(ls) {
-		return fmt.Errorf("task not found")
+		return fmt.Errorf("item %d does not exist", i)
 	}
 
 	// Adjusting index for 0 based index
@@ -85,13 +86,13 @@ func (l *List) Save(filename string) error {
 		return err
 	}
 
-	return os.WriteFile(filename, js, 0644)
+	return ioutil.WriteFile(filename, js, 0644)
 }
 
 // Get method opens the provided file name, decodes
 // the JSON data and parses it into a List
 func (l *List) Get(filename string) error {
-	file, err := os.ReadFile(filename)
+	file, err := ioutil.ReadFile(filename)
 	if err != nil {
 		if errors.Is(err, os.ErrNotExist) {
 			return nil
